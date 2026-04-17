@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Ungoogled Chromium Updater",
+  "version": "1.0.0",
+  "description": "Check GitHub for the latest Ungoogled Chromium release and link to the matching asset.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Ungoogled Chromium Updater"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "host_permissions": [
+    "https://api.github.com/*"
+  ],
+  "minimum_chrome_version": "102"
+}

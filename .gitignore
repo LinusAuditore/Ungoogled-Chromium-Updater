@@ -1,0 +1,19 @@
+# Browser extension build artifacts
+*.crx
+*.pem
+*.zip
+session_state.md
+
+# OS caches
+.DS_Store
+.AppleDouble
+Thumbs.db
+
+# Editors & IDE workspaces
+*.swp
+.vscode/
+.idea/
+
+# Python bytecode
+__pycache__/
+*.pyc
