@@ -13,6 +13,7 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+.claude/
 
 # Python bytecode
 __pycache__/
