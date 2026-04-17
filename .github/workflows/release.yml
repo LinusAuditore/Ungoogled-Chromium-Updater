@@ -15,6 +15,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Sync manifest version with tag
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          jq --arg v "$VERSION" '.version = $v' manifest.json > manifest.tmp.json
+          mv manifest.tmp.json manifest.json
+          echo "manifest.json version set to $VERSION"
+
       - name: Package extension
         run: |
           zip -r ungoogled-chromium-updater.zip . \
