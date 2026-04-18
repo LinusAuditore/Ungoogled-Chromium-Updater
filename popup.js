@@ -43,7 +43,16 @@ async function getLocalVersion() {
   return m ? m[1] : '0.0.0';
 }
 
-const $ = id => document.getElementById(id);
+const i18n = chrome.i18n.getMessage.bind(chrome.i18n);
+const $    = id => document.getElementById(id);
+
+// Apply i18n strings to all elements carrying a data-i18n attribute.
+function localiseDOM() {
+  document.title = i18n('popupTitle');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = i18n(el.dataset.i18n);
+  });
+}
 
 function fmtBytes(n) {
   return n ? `${(n / 1048576).toFixed(1)} MB` : '';
@@ -59,13 +68,15 @@ function renderBlocked(brand) {
   document.body.innerHTML = `
     <div class="blocked">
       <div class="blocked-icon">⛔</div>
-      <div class="blocked-title">Access Denied</div>
-      <div class="blocked-msg">This updater only supports Ungoogled Chromium (or plain Chromium). The current browser has been identified as an unsupported commercial fork.</div>
+      <div class="blocked-title">${i18n('blockedTitle')}</div>
+      <div class="blocked-msg">${i18n('blockedMsg')}</div>
       <div class="blocked-brand">${brand}</div>
     </div>`;
 }
 
 async function main() {
+  localiseDOM();
+
   const blockedBrand = verifyBrowserEnvironment();
   if (blockedBrand) {
     renderBlocked(blockedBrand);
@@ -79,12 +90,12 @@ async function main() {
   try {
     resp = await chrome.runtime.sendMessage({ type: 'fetchLatest' });
   } catch (err) {
-    setStatus(`Error: ${err.message || err}`, 'err');
+    setStatus(i18n('statusError', [err.message || String(err)]), 'err');
     return;
   }
 
   if (!resp?.ok) {
-    setStatus(`Error: ${resp?.error || 'unknown'}`, 'err');
+    setStatus(i18n('statusError', [resp?.error || 'unknown']), 'err');
     return;
   }
 
@@ -95,7 +106,7 @@ async function main() {
   if (!asset) {
     $('asset').textContent = '—';
     $('download').classList.add('hidden');
-    setStatus('No compatible installer found for the current architecture.', 'err');
+    setStatus(i18n('statusNoAsset'), 'err');
     return;
   }
 
@@ -103,14 +114,14 @@ async function main() {
   $('asset').textContent = size ? `${asset.name} · ${size}` : asset.name;
 
   if (verGe(current, version)) {
-    setStatus(`Up to date (${current} ≥ ${version}).`, 'ok');
+    setStatus(i18n('statusUpToDate', [current, version]), 'ok');
     return;
   }
 
-  setStatus(`Update available: ${current} → ${version}`, 'update');
+  setStatus(i18n('statusUpdateAvailable', [current, version]), 'update');
   const btn = $('download');
   btn.href = asset.browser_download_url;
-  btn.textContent = `Download ${asset.name}`;
+  btn.textContent = i18n('downloadBtn', [asset.name]);
   btn.classList.remove('hidden');
 }
 

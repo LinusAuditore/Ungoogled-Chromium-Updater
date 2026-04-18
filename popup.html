@@ -2,15 +2,15 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Ungoogled Chromium Updater</title>
+  <title></title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h1>Ungoogled Chromium Updater</h1>
-  <div class="row"><span class="label">Current</span><span id="current" class="value">…</span></div>
-  <div class="row"><span class="label">Latest</span><span id="latest" class="value">…</span></div>
-  <div class="row"><span class="label">Platform</span><span id="platform" class="value">…</span></div>
-  <div class="row"><span class="label">Asset</span><span id="asset" class="value">…</span></div>
+  <h1 data-i18n="popupTitle"></h1>
+  <div class="row"><span class="label" data-i18n="labelCurrent"></span><span id="current" class="value">…</span></div>
+  <div class="row"><span class="label" data-i18n="labelLatest"></span><span id="latest" class="value">…</span></div>
+  <div class="row"><span class="label" data-i18n="labelPlatform"></span><span id="platform" class="value">…</span></div>
+  <div class="row"><span class="label" data-i18n="labelAsset"></span><span id="asset" class="value">…</span></div>
   <div id="status" class="status"></div>
   <a id="download" class="btn hidden" href="#" target="_blank" rel="noopener noreferrer"></a>
   <script type="module" src="popup.js"></script>

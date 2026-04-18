@@ -1,0 +1,58 @@
+{
+  "extName": {
+    "message": "Ungoogled Chromium Updater"
+  },
+  "extDescription": {
+    "message": "Vérifie les dernières versions d'Ungoogled Chromium sur GitHub et fournit un lien de téléchargement pour l'asset correspondant à la plateforme."
+  },
+  "popupTitle": {
+    "message": "Ungoogled Chromium Updater"
+  },
+  "labelCurrent": {
+    "message": "Actuelle"
+  },
+  "labelLatest": {
+    "message": "Dernière"
+  },
+  "labelPlatform": {
+    "message": "Plateforme"
+  },
+  "labelAsset": {
+    "message": "Fichier"
+  },
+  "statusUpToDate": {
+    "message": "À jour ($CURRENT$ ≥ $LATEST$).",
+    "placeholders": {
+      "current": { "content": "$1" },
+      "latest":  { "content": "$2" }
+    }
+  },
+  "statusUpdateAvailable": {
+    "message": "Mise à jour disponible : $CURRENT$ → $LATEST$",
+    "placeholders": {
+      "current": { "content": "$1" },
+      "latest":  { "content": "$2" }
+    }
+  },
+  "statusNoAsset": {
+    "message": "Aucun installeur compatible trouvé pour l'architecture actuelle."
+  },
+  "statusError": {
+    "message": "Erreur : $DETAIL$",
+    "placeholders": {
+      "detail": { "content": "$1" }
+    }
+  },
+  "downloadBtn": {
+    "message": "Télécharger $NAME$",
+    "placeholders": {
+      "name": { "content": "$1" }
+    }
+  },
+  "blockedTitle": {
+    "message": "Accès refusé"
+  },
+  "blockedMsg": {
+    "message": "Ce programme de mise à jour ne prend en charge qu'Ungoogled Chromium (ou Chromium natif). Le navigateur actuel a été identifié comme une déclinaison commerciale non prise en charge."
+  }
+}

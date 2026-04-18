@@ -1,11 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Ungoogled Chromium Updater",
-  "version": "0.0.3",
-  "description": "Check GitHub for the latest Ungoogled Chromium release and link to the matching asset.",
+  "name": "__MSG_extName__",
+  "version": "0.0.4",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Ungoogled Chromium Updater"
+    "default_title": "__MSG_extName__"
   },
   "background": {
     "service_worker": "background.js",
