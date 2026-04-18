@@ -3,6 +3,25 @@
 
 import { verGe } from './lib/version.js';
 
+const BLOCKED_BRANDS = ['Google Chrome', 'Microsoft Edge', 'Brave', 'Opera', 'Vivaldi'];
+// UA-string tokens present in commercial forks but not in plain Chromium.
+const BLOCKED_UA_RE = /Edg\/|OPR\/|Vivaldi\/|YaBrowser\/|BraveBrowser\//;
+
+// Returns the offending brand name if the environment is a known commercial
+// fork, or null if the browser appears to be plain / Ungoogled Chromium.
+function verifyBrowserEnvironment() {
+  const uad = navigator.userAgentData;
+  if (uad?.brands) {
+    const hit = uad.brands.find(b => BLOCKED_BRANDS.includes(b.brand));
+    if (hit) return hit.brand;
+  }
+  // Fallback: UA string heuristics (covers browsers that omit userAgentData).
+  const ua = navigator.userAgent;
+  const m = ua.match(BLOCKED_UA_RE);
+  if (m) return m[0].replace('/', '');
+  return null;
+}
+
 // Parse the Chromium version the browser itself is running.
 // Prefer navigator.userAgentData (structured, high-entropy), fall back to the
 // UA string. Ungoogled Chromium disables UA-Client-Hints by default, so the
@@ -36,7 +55,23 @@ function setStatus(text, kind) {
   el.className = 'status' + (kind ? ' ' + kind : '');
 }
 
+function renderBlocked(brand) {
+  document.body.innerHTML = `
+    <div class="blocked">
+      <div class="blocked-icon">⛔</div>
+      <div class="blocked-title">Access Denied</div>
+      <div class="blocked-msg">This updater only supports Ungoogled Chromium (or plain Chromium). The current browser has been identified as an unsupported commercial fork.</div>
+      <div class="blocked-brand">${brand}</div>
+    </div>`;
+}
+
 async function main() {
+  const blockedBrand = verifyBrowserEnvironment();
+  if (blockedBrand) {
+    renderBlocked(blockedBrand);
+    return;
+  }
+
   const current = await getLocalVersion();
   $('current').textContent = current;
 

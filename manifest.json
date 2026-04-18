@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Ungoogled Chromium Updater",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Check GitHub for the latest Ungoogled Chromium release and link to the matching asset.",
   "action": {
     "default_popup": "popup.html",
